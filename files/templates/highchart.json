@@ -1,0 +1,47 @@
+{
+  "chart": {
+    "style": {
+      "color": "#b9bbbb"
+    },
+    "renderTo": "container",
+    "backgroundColor": "transparent",
+    "lineColor": "rgba(35,37,38,100)",
+    "plotShadow": false
+  },
+  "credits": {
+    "enabled": false
+  },
+  "title": {
+    "style": {
+      "color": "#b9bbbb"
+    },
+    "text": ""
+  },
+  "xAxis": {
+    "categories": []
+  },
+  "yAxis": {
+    "title": {
+      "style": {
+        "color": "#b9bbbb"
+      },
+      "text": "Quantidade"
+    }
+  },
+  "legend": {
+    "itemStyle": {
+      "color": "#b9bbbb"
+    },
+    "layout": "vertical",
+    "align": "right",
+    "verticalAlign": "middle",
+    "borderWidth": 0
+  },
+  "series": [
+    {
+      "color": "#108ec5",
+      "name": "",
+      "data": []
+    }
+  ]
+}
