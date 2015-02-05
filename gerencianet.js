@@ -11,6 +11,26 @@ var request = require('request');
 module.exports = {
     notification: function (req, res, next) {
         if (req.body != undefined){
+            var timestamp = Math.floor(Number(new Date()) / 1000).toString();
+
+            var params = {
+                TableName: 'PaymentLOg',
+                Item: {
+                    "Data": {
+                        "S": JSON.stringify(req.body)
+                    },
+                    "timestamp": {
+                        "N": timestamp
+                    }
+                }
+            };
+            dynamodb.putItem(params, function (err, data) {
+                if (err) {
+                    console.log(err, err.stack); // an error occurred
+                }
+            });
+
+
             if (req.body.notificacao!= undefined){
                 request.post({
                         headers: {'content-type' : 'application/x-www-form-urlencoded'},
@@ -26,81 +46,80 @@ module.exports = {
                             if (body.resposta != undefined) {
                                 if (body.resposta.codigoStatus != undefined) {
                                     if (body.resposta.identificador != undefined) {
+                                        if (body.resposta.codigoStatus.toString()=="5"){
+                                            var arr = body.resposta.identificador.split(";");
 
-                                        var arr = body.resposta.identificador.split(";");
+                                            var email = arr[0];
+                                            var code = arr[1];
+                                            var plan = require("./plans.json");
 
-                                        var email = arr[0];
-                                        var code = arr[1];
-                                        var plan = require("./plans.json");
+                                            if (plan[code]!=undefined){
+                                                plan = plan[code];
 
-                                        if (plan[code]!=undefined){
-                                            plan = plan[code];
+                                                var credits = plan.credits;
+                                                var d = new Date();
+                                                d.setMonth(d.getMonth() + parseInt(plan.periodicity));
+                                                var expiration = Math.floor(d.getTime() / 1000).toString();
 
-                                            var credits = plan.credits;
-                                            var d = new Date();
-                                            d.setMonth(d.getMonth() + parseInt(plan.periodicity));
-                                            var expiration = Math.floor(d.getTime() / 1000).toString();
-                                            var timestamp = Math.floor(Number(new Date()) / 1000).toString();
+                                                var params = {
+                                                    TableName: 'Users',
+                                                    Key: {
+                                                        "UserEmail": {
+                                                            "S": email
+                                                        }
+                                                    },
+                                                    AttributeUpdates: {
+                                                        "IsSubscribed": {
+                                                            Action: 'PUT',
+                                                            Value: {
+                                                                N: '1'
+                                                            }
+                                                        },
+                                                        "LastWritten": {
+                                                            Action: 'PUT',
+                                                            Value: {
+                                                                N: timestamp
+                                                            }
+                                                        },
+                                                        "SubscriptionExpirationDate": {
+                                                            Action: 'PUT',
+                                                            Value: {
+                                                                N: expiration
+                                                            }
+                                                        },
+                                                        "LastModifiedBy": {
+                                                            Action: 'PUT',
+                                                            Value: {
+                                                                S: 'web'
+                                                            }
+                                                        },
+                                                        "CreditBalance": {
+                                                            Action: 'PUT',
+                                                            Value: {
+                                                                N: credits
+                                                            }
+                                                        }
 
-                                            var params = {
-                                                TableName: 'Users',
-                                                Key: {
-                                                    "UserEmail": {
-                                                        "S": email
+                                                    },
+                                                    ReturnValues: 'UPDATED_NEW'
+                                                };
+
+                                                dynamodb.updateItem(params, function(err, data) {
+                                                    if (err){
+                                                        res.send(401, err);
                                                     }
-                                                },
-                                                AttributeUpdates: {
-                                                    "IsSubscribed": {
-                                                        Action: 'PUT',
-                                                        Value: {
-                                                            N: '1'
-                                                        }
-                                                    },
-                                                    "LastWritten": {
-                                                        Action: 'PUT',
-                                                        Value: {
-                                                            N: timestamp
-                                                        }
-                                                    },
-                                                    "SubscriptionExpirationDate": {
-                                                        Action: 'PUT',
-                                                        Value: {
-                                                            N: expiration
-                                                        }
-                                                    },
-                                                    "LastModifiedBy": {
-                                                        Action: 'PUT',
-                                                        Value: {
-                                                            S: 'web'
-                                                        }
-                                                    },
-                                                    "CreditBalance": {
-                                                        Action: 'PUT',
-                                                        Value: {
-                                                            N: credits
-                                                        }
+                                                    else{
+                                                        res.send(200);
                                                     }
-
-                                                },
-                                                ReturnValues: 'UPDATED_NEW'
-                                            };
-
-                                            dynamodb.updateItem(params, function(err, data) {
-                                                if (err){
-                                                    res.send(401, err);
-                                                }
-                                                else{
-                                                    res.send(200);
-                                                }
-                                            });
+                                                });
 
 
-                                        }else {
-                                            res.json(401,{erro:"Plano inválido"});
+                                            }else {
+                                                res.json(401,{erro:"Plano inválido"});
+                                            }
+                                        }else{
+                                            res.json(200,{msg:"Recebido (Status " +body.resposta.codigoStatus.toString()+ ")"});
                                         }
-
-
-
                                     } else {
                                         res.json(401,{erro:"Dados não enviados (identificador)"});
                                     }
@@ -112,6 +131,30 @@ module.exports = {
                             }
 
 
+                        } else {
+                            res.json(401, error);
+                        }
+                    }
+                );
+            }else{
+                res.json(401, {erro:"Notifiçaçao não enviada"});
+            }
+        }else{
+            res.json(401, {erro:"Dados não enviados"});
+        }
+
+    },
+    getNotificationInfo: function (req, res, next) {
+        if (req.params != undefined){
+            if (req.params.notificacao!= undefined){
+                request.post({
+                        headers: {'content-type' : 'application/x-www-form-urlencoded'},
+                        url:config.GerenciaNetUrlNotificationInfo,
+                        body:"token=" + config.GerenciaNetToken + "&dados="+JSON.stringify({"notificacao":req.params.notificacao})
+                    },
+                    function (error, response, body) {
+                        if (!error && response.statusCode == 200) {
+                            res.json(200, JSON.parse(body));
                         } else {
                             res.json(401, error);
                         }
