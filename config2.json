@@ -1,0 +1,11 @@
+{
+  "AmazonRegion": "us-east-1",
+  "AmazonAccessKeyId": "AKIAJRLSY67X6PGGY6OA",
+  "AmazonSecretAccessKey": "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",
+  "GerenciaNetToken": "093CB68B46B47AA44F1303EA8F45FB7009680836",
+  "GerenciaNetUrlNotificationInfo":"https://go.gerencianet.com.br/api/notificacao/json",
+  "GerenciaNetUrlPayment":"https://go.gerencianet.com.br/api/assinatura/json",
+  "GerenciaNetUrlToBeRedirected":"http://192.168.16.58:9000/",
+  "GerenciaNetUrlToBeNotificatedTrue":"https://go.gerencianet.com.br/api/notificacao/json",
+  "GerenciaNetUrlToBeNotificated":"http://requestb.in/19m9ika1"
+}
