@@ -11,10 +11,9 @@ var app        = express();
 
 app.use(cors({
    allowedOrigins: [
-       'http://127.0.0.1:9000',
-       'http://201.87.228.140:9000',
-       'http://177.72.244.6',
-       'http://beet.cc'
+       'https://go.gerencianet.com.br',
+       'http://starline.herokuapp.com',
+       'http://sgplite.starlinetecnologia.com.br'
    ]
 }));
 
