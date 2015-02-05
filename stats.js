@@ -1,6 +1,10 @@
 var AWS = require('aws-sdk');
-AWS.config.loadFromPath('./config.json');
-AWS.config.update({region: 'us-east-1'});
+var config = require("./config.js");
+AWS.config.update({
+    accessKeyId: config.AmazonAccessKeyId,
+    secretAccessKey: config.AmazonSecretAccessKey,
+    region: config.AmazonRegion
+});
 var dynamodb = new AWS.DynamoDB();
 var fs = require("fs");
 

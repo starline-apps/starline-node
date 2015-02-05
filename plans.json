@@ -1,0 +1,14 @@
+{
+  "1": {
+    "description": "SGP Lite (Aplicativo)",
+    "value": "8990",
+    "periodicity":"6",
+    "credits":"2000"
+  },
+  "2": {
+    "description": "SGP Lite",
+    "value": "1990",
+    "periodicity":"1",
+    "credits":"10000"
+  }
+}

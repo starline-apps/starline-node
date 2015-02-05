@@ -15,6 +15,11 @@ module.exports = function(app) {
     router.get('/stats/apple-ingestion-monthly', StatsController.getAppleIngestionMonthly);
     router.get('/stats/grade-by-month', StatsController.getGradeByMonth);
 
+    var GerencianetController = require("./gerencianet");
+    router.post('/gerencianet/notification', GerencianetController.notification);
+    router.post('/gerencianet/payment-link', GerencianetController.getPaymentLink);
+
+
     router.post('/pdf', function(req, res, next){
 
         var pdf = require('pdfcrowd');
