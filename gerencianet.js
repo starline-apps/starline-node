@@ -187,6 +187,9 @@ module.exports = {
                                 "urlNotificacao": config.GerenciaNetUrlToBeNotificated,
                                 "urlRedirect": config.GerenciaNetUrlToBeRedirected,
                                 "identificador": email + ";" + code + ";" + timestamp
+                            },
+                            "cliente": {
+                                "email": email
                             }
                         };
 
