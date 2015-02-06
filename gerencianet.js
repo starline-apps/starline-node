@@ -202,7 +202,7 @@ module.exports = {
 
                                     if (body.resposta!=undefined){
                                         if (body.resposta.link!=undefined){
-                                            res.json({link:body.resposta});
+                                            res.json({link:body.resposta.link});
                                         }else{
                                             res.json(body);
                                         }

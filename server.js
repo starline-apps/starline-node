@@ -13,7 +13,8 @@ app.use(cors({
    allowedOrigins: [
        'https://go.gerencianet.com.br',
        'http://starline.herokuapp.com',
-       'http://sgplite.starlinetecnologia.com.br'
+       'http://sgplite.starlinetecnologia.com.br',
+       'http://192.168.16.58:9000'
    ]
 }));
 

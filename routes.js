@@ -25,7 +25,7 @@ module.exports = function(app) {
 
 
 // convert a web page and save it to a file
-        client.convertURI('http://beet.cc', pdf.saveToFile("beet.pdf"));
+
 
     });
 
