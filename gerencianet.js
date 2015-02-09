@@ -193,9 +193,15 @@ module.exports = {
                             }
                         };
 
+                        if (plan.recurrent){
+                            var urlPayment = config.GerenciaNetUrlRecurrentPayment;
+                        }else{
+                            var urlPayment = config.GerenciaNetUrlPayment;
+                        }
+
                         request.post({
                                 headers: {'content-type' : 'application/x-www-form-urlencoded'},
-                                url:config.GerenciaNetUrlPayment,
+                                url:urlPayment,
                                 body:"token=" + config.GerenciaNetToken + "&dados="+JSON.stringify(data)
                             },
                             function (error, response, body) {

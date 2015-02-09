@@ -1,14 +1,24 @@
 {
   "1": {
-    "description": "SGP Lite (Aplicativo)",
+    "description": "App Correção",
     "value": "8990",
     "periodicity":"6",
-    "credits":"2000"
+    "credits":"2000",
+    "recurrent":true
+
   },
   "2": {
     "description": "SGP Lite",
     "value": "1990",
     "periodicity":"1",
-    "credits":"10000"
+    "credits":"10000",
+    "recurrent":true
+  },
+  "3": {
+    "description": "App Correção",
+    "value": "8990",
+    "periodicity":"6",
+    "credits":"2000",
+    "recurrent":false
   }
 }
