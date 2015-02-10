@@ -185,7 +185,7 @@ module.exports = {
                             "periodicidade": plan.periodicity,
                             "retorno": {
                                 "urlNotificacao": config.GerenciaNetUrlToBeNotificated,
-                                "urlRedirect": config.GerenciaNetUrlToBeRedirected,
+                                "url": config.GerenciaNetUrlToBeRedirected,
                                 "identificador": email + ";" + code + ";" + timestamp
                             },
                             "cliente": {
