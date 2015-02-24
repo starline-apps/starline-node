@@ -46,11 +46,34 @@ module.exports = {
                             if (body.resposta != undefined) {
                                 if (body.resposta.codigoStatus != undefined) {
                                     if (body.resposta.identificador != undefined) {
-                                        if (body.resposta.codigoStatus.toString()=="5"){
-                                            var arr = body.resposta.identificador.split(";");
+                                        var timestamp = Math.floor(Number(new Date()) / 1000).toString();
+                                        var arr = body.resposta.identificador.split(";");
 
-                                            var email = arr[0];
-                                            var code = arr[1];
+                                        var email = arr[0];
+                                        var code = arr[1];
+
+                                        var params = {
+                                            TableName: 'PaymentLOg',
+                                            Item: {
+                                                "Data": {
+                                                    "S": JSON.stringify(body)
+                                                },
+                                                "Email": {
+                                                    "S": email
+                                                },
+                                                "timestamp": {
+                                                    "N": timestamp
+                                                }
+                                            }
+                                        };
+                                        dynamodb.putItem(params, function (err, data) {
+                                            if (err) {
+                                                console.log(err, err.stack); // an error occurred
+                                            }
+                                        });
+
+                                        if (body.resposta.codigoStatus.toString()=="5"){
+
                                             var plan = require("./plans.json");
 
                                             if (plan[code]!=undefined){
