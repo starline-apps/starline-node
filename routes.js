@@ -15,6 +15,7 @@ module.exports = function(app) {
     router.post('/gerencianet/notification', GerencianetController.notification);
     router.get('/gerencianet/notification-info/:notificacao', GerencianetController.getNotificationInfo);
     router.post('/gerencianet/payment-link', GerencianetController.getPaymentLink);
+    router.post('/gerencianet/user-free', GerencianetController.setUserFree);
 
     router.post('/pdf', function(req, res, next){
 

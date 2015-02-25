@@ -267,7 +267,116 @@ module.exports = {
         }
 
     },
+    setUserFree: function (req, res, next) {
+        if (req.body != undefined){
+            if (req.body.email!= undefined && req.body.plan!= undefined){
 
+                    var timestamp = Math.floor(Number(new Date()) / 1000).toString();
+
+                    var email = req.body.email;
+                    var code = req.body.plan;
+
+                    var params = {
+                        TableName: 'PaymentLOg',
+                        Item: {
+                            "Data": {
+                                "S": JSON.stringify(req.body)
+                            },
+                            "Email": {
+                                "S": email
+                            },
+                            "Free": {
+                                "N": "1"
+                            },
+                            "timestamp": {
+                                "N": timestamp
+                            }
+                        }
+                    };
+                    dynamodb.putItem(params, function (err, data) {
+                        if (err) {
+                            console.log(err, err.stack); // an error occurred
+                        }
+                    });
+
+                    var plan = require("./plans.json");
+
+                    if (plan[code]!=undefined){
+                        plan = plan[code];
+
+                        var credits = plan.credits;
+                        var d = new Date();
+                        d.setMonth(d.getMonth() + parseInt(plan.periodicity));
+                        var expiration = Math.floor(d.getTime() / 1000).toString();
+
+                        var params = {
+                            TableName: 'Users',
+                            Key: {
+                                "UserEmail": {
+                                    "S": email
+                                }
+                            },
+                            AttributeUpdates: {
+                                "IsSubscribed": {
+                                    Action: 'PUT',
+                                    Value: {
+                                        N: '1'
+                                    }
+                                },
+                                "LastWritten": {
+                                    Action: 'PUT',
+                                    Value: {
+                                        N: timestamp
+                                    }
+                                },
+                                "SubscriptionExpirationDate": {
+                                    Action: 'PUT',
+                                    Value: {
+                                        N: expiration
+                                    }
+                                },
+                                "LastModifiedBy": {
+                                    Action: 'PUT',
+                                    Value: {
+                                        S: 'web'
+                                    }
+                                },
+                                "CreditBalance": {
+                                    Action: 'PUT',
+                                    Value: {
+                                        N: credits
+                                    }
+                                }
+
+                            },
+                            ReturnValues: 'UPDATED_NEW'
+                        };
+
+                        dynamodb.updateItem(params, function(err, data) {
+                            if (err){
+                                res.send(401, err);
+                            }
+                            else{
+                                res.send(200);
+                            }
+                        });
+
+
+                    }else {
+                        res.json(401,{erro:"Plano inválido"});
+                    }
+
+            } else {
+                res.json(401,{erro:"Dados não enviados (email ou plano)"});
+            }
+
+        } else {
+            res.json(401,{erro:"Dados não enviados (body)"});
+        }
+
+
+
+    }
 
 
 
