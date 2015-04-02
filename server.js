@@ -15,7 +15,8 @@ app.use(cors({
        'http://starline.herokuapp.com',
        'http://sgplite.starlinetecnologia.com.br',
        'http://www.provafacilnaweb.com.br',
-       'http://www.starlinetecnologia.com.br'
+       'http://www.starlinetecnologia.com.br',
+	   'http://www.provafacilnaweb.com.br.usrfiles.com'
    ]
 }));
 
