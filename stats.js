@@ -85,7 +85,6 @@ module.exports = {
 
 
             interval = 2628000;
-            console.log( (now - interval));
             for (var ii in data.Items) {
 
                 lastWritten = parseInt(data.Items[ii].LastWritten.N);

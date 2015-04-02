@@ -14,7 +14,8 @@ app.use(cors({
        'https://go.gerencianet.com.br',
        'http://starline.herokuapp.com',
        'http://sgplite.starlinetecnologia.com.br',
-       'http://192.168.16.58:9000'
+       'http://www.provafacilnaweb.com.br',
+       'http://www.starlinetecnologia.com.br'
    ]
 }));
 

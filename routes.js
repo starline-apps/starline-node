@@ -3,8 +3,6 @@ var router = require("express").Router();
 module.exports = function(app) {
 
     var StatsController = require("./stats");
-
-
     router.get('/stats/active-users', StatsController.getActiveUsers);
     router.get('/stats/active-users-length', StatsController.getActiveUsersLength);
     router.get('/stats/apple-ingestion-monthly/:date', StatsController.getAppleIngestionMonthly);
@@ -17,19 +15,9 @@ module.exports = function(app) {
     router.post('/gerencianet/payment-link', GerencianetController.getPaymentLink);
     router.post('/gerencianet/user-free', GerencianetController.setUserFree);
 
-    router.post('/pdf', function(req, res, next){
-
-        var pdf = require('pdfcrowd');
-
-// create an API client instance
-        var client = new pdf.Pdfcrowd("starline", "569fc773e99e852a533db736fe5f5de0");
-
-
-// convert a web page and save it to a file
-
-
-    });
-
+    var Auth0Controller = require("./auth0");
+    router.post('/auth0/signup', Auth0Controller.signup);
+    router.post('/auth0/change-password', Auth0Controller.changePassword);
 
     return router;
 };
