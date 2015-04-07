@@ -1,45 +1,52 @@
 {
-  "1": {
-    "description": "App Correção",
-    "value": "8990",
-    "periodicity":"6",
-    "credits":"2000",
-    "recurrent":true
+    "1": {
+        "description": "App Correção",
+        "value": "8990",
+        "periodicity":"6",
+        "credits":"2000",
+        "recurrent":true
 
-  },
-  "2": {
-    "description": "SGP Lite",
-    "value": "1990",
-    "periodicity":"1",
-    "credits":"10000",
-    "recurrent":true
-  },
-  "3": {
-    "description": "App Correção",
-    "value": "8990",
-    "periodicity":"6",
-    "credits":"2000",
-    "recurrent":false
-  },
-  "101": {
-    "description": "SGP Lite Free 30",
-    "value": "0",
-    "periodicity":"1",
-    "credits":"10000",
-    "recurrent":false
-  },
-  "102": {
-    "description": "SGP Lite Free 60",
-    "value": "8990",
-    "periodicity":"2",
-    "credits":"10000",
-    "recurrent":false
-  },
-  "103": {
-    "description": "SGP Lite Free 90",
-    "value": "0",
-    "periodicity":"3",
-    "credits":"10000",
-    "recurrent":false
-  }
+    },
+    "2": {
+        "description": "SGP Lite",
+        "value": "1990",
+        "periodicity":"1",
+        "credits":"10000",
+        "recurrent":true
+    },
+    "3": {
+        "description": "App Correção",
+        "value": "8990",
+        "periodicity":"6",
+        "credits":"2000",
+        "recurrent":false
+    },
+    "4": {
+        "description": "SGP Lite",
+        "value": "1990",
+        "periodicity":"1",
+        "credits":"500",
+        "recurrent":true
+    },
+    "101": {
+        "description": "SGP Lite Free 30",
+        "value": "0",
+        "periodicity":"1",
+        "credits":"10000",
+        "recurrent":false
+    },
+    "102": {
+        "description": "SGP Lite Free 60",
+        "value": "8990",
+        "periodicity":"2",
+        "credits":"10000",
+        "recurrent":false
+    },
+    "103": {
+        "description": "SGP Lite Free 90",
+        "value": "0",
+        "periodicity":"3",
+        "credits":"10000",
+        "recurrent":false
+    }
 }
