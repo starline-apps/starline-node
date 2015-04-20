@@ -32,21 +32,21 @@
         "description": "SGP Lite Free 30",
         "value": "0",
         "periodicity":"1",
-        "credits":"10000",
+        "credits":"500",
         "recurrent":false
     },
     "102": {
         "description": "SGP Lite Free 60",
-        "value": "8990",
+        "value": "0",
         "periodicity":"2",
-        "credits":"10000",
+        "credits":"1000",
         "recurrent":false
     },
     "103": {
         "description": "SGP Lite Free 90",
         "value": "0",
         "periodicity":"3",
-        "credits":"10000",
+        "credits":"1500",
         "recurrent":false
     }
 }
