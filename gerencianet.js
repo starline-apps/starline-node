@@ -39,6 +39,13 @@ module.exports = {
                         body:"token=" + config.GerenciaNetToken + "&dados="+JSON.stringify({"notificacao":req.body.notificacao})
                     },
                     function (error, response, body) {
+                        console.log("-------------------");
+                        console.log(error);
+                        console.log("-------------------");
+                        console.log(response);
+                        console.log("-------------------");
+                        console.log(body);
+                        console.log("-------------------");
                         if (!error && response.statusCode == 200) {
 
                             body = JSON.parse(body);
