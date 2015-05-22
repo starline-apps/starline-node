@@ -39,13 +39,6 @@ module.exports = {
                         body:"token=" + config.GerenciaNetToken + "&dados="+JSON.stringify({"notificacao":req.body.notificacao})
                     },
                     function (error, response, body) {
-                        console.log("-------------------");
-                        console.log(error);
-                        console.log("-------------------");
-                        console.log(response);
-                        console.log("-------------------");
-                        console.log(body);
-                        console.log("-------------------");
                         if (!error && response.statusCode == 200) {
 
                             body = JSON.parse(body);
@@ -146,31 +139,39 @@ module.exports = {
 
 
                                             }else {
+                                                console.log("Plano inválido");
                                                 res.json(401,{erro:"Plano inválido"});
                                             }
                                         }else{
+                                            console.log("Recebido (Status " +body.resposta.codigoStatus.toString()+ ")");
                                             res.json(200,{msg:"Recebido (Status " +body.resposta.codigoStatus.toString()+ ")"});
                                         }
                                     } else {
+                                        console.log("Dados não enviados (identificador)");
                                         res.json(401,{erro:"Dados não enviados (identificador)"});
                                     }
                                 } else {
+                                    console.log("Dados não enviados (codigoStatus)");
                                     res.json(401,{erro:"Dados não enviados (codigoStatus)"});
                                 }
                             } else {
+                                console.log("Dados não enviados (resposta)");
                                 res.json(401,{erro:"Dados não enviados (resposta)"});
                             }
 
 
                         } else {
+                            console.log(error);
                             res.json(401, error);
                         }
                     }
                 );
             }else{
+                console.log("Notifiçaçao não enviada");
                 res.json(401, {erro:"Notifiçaçao não enviada"});
             }
         }else{
+            console.log("Dados não enviados");
             res.json(401, {erro:"Dados não enviados"});
         }
 
