@@ -10,6 +10,7 @@ var request = require('request');
 
 module.exports = {
     notification: function (req, res, next) {
+        console.log(req.body);
         if (req.body != undefined){
             var timestamp = Math.floor(Number(new Date()) / 1000).toString();
 
